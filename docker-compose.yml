@@ -1,0 +1,26 @@
+version: "3.9"
+
+services:
+  web:
+    build: ./app
+    image: claytoncsj/appthon_web:latest
+    ports:
+      - "5000:5000"
+    depends_on:
+      - db
+    networks:
+      - app_network
+
+  db:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: testdb
+    ports:
+      - "3306:3306"
+    networks:
+      - app_network
+
+networks:
+  app_network:
+    driver: overlay
